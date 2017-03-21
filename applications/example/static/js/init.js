@@ -103,7 +103,16 @@ api.dom.on('load', function() {
   });
 
   api.dom.on('click', '#menuFileUpload', function() {
-    api.dom.load('/examples/simple/upload.ajax', panelCenter);
+    //api.dom.load('/examples/simple/upload.ajax', panelCenter);
+    var fileSelect = document.getElementById('fileSelect');
+    fileSelect.click();
+    fileSelect.onchange = function(e) {
+      console.log('Uploading ' + fileSelect.files.length + ' file(s)');
+      for (var file of fileSelect.files) {
+        console.log(file.name + ' ' + file.size);
+        uploadFile('/examples/simple/uploadFile.json', file);
+      }
+    };
   });
 
   api.dom.on('click', '#menuDownload', function() {
@@ -332,3 +341,21 @@ api.dom.on('load', function() {
   });
 
 });
+
+function uploadFile(url, file) {
+  var formData = new FormData();
+  formData.append(file.name, file);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', url, true);
+  xhr.onprogress = function (e) {
+    console.dir({ progress: e });
+  };
+  xhr.onload = function (e) {
+    console.dir({ onload: e });
+  };
+  xhr.onerror = function (e) {
+    console.dir({ onerror: e });
+  };
+  xhr.send(formData);
+};
