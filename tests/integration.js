@@ -109,7 +109,7 @@ if (process.isMaster) {
   console.log(
     api.concolor('b,green')('Testing Impress...')
   );
-  impress.server.on('started', () => {
+  impress.on('started', () => {
     let i;
     for (i = 0; i < config.tasks.length; i++) {
       httpTask(config.tasks[i]);
@@ -117,4 +117,4 @@ if (process.isMaster) {
   });
 }
 
-impress.server.start();
+impress.start();
