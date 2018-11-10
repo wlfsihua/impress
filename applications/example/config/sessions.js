@@ -21,8 +21,8 @@
   // Store sessions in persistent database
   persist: true,
 
-  perIpLimit: '20',
-  perUserLimit: '5',
+  perIpLimit: 20,
+  perUserLimit: 5,
   //confirmTime: '1m',
   //expireTime: '2m',
 
